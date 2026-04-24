@@ -1,0 +1,19 @@
+# --- Ignore Tool Outputs ---
+# These are generated every run; no need to track them.
+logs/
+outputDefs/
+*.log
+
+# --- Ignore Python Cache ---
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Python Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Editor Settings
+.vscode/
+.idea/

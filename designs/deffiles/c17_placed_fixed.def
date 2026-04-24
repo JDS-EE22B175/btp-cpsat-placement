@@ -1,0 +1,142 @@
+VERSION 5.8 ;
+DIVIDERCHAR "/" ;
+BUSBITCHARS "[]" ;
+DESIGN c17 ;
+UNITS DISTANCE MICRONS 1000 ;
+DIEAREA ( 0 0 ) ( 30700 41420 ) ;
+COMPONENTS 35 ;
+   - PHY_EDGE_ROW_0_Left_7 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 5520 10880 ) N ;
+   - PHY_EDGE_ROW_0_Right_0 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 23460 10880 ) FN ;
+   - PHY_EDGE_ROW_1_Left_8 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 5520 13600 ) FS ;
+   - PHY_EDGE_ROW_1_Right_1 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 23460 13600 ) S ;
+   - PHY_EDGE_ROW_2_Left_9 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 5520 16320 ) N ;
+   - PHY_EDGE_ROW_2_Right_2 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 23460 16320 ) FN ;
+   - PHY_EDGE_ROW_3_Left_10 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 5520 19040 ) FS ;
+   - PHY_EDGE_ROW_3_Right_3 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 23460 19040 ) S ;
+   - PHY_EDGE_ROW_4_Left_11 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 5520 21760 ) N ;
+   - PHY_EDGE_ROW_4_Right_4 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 23460 21760 ) FN ;
+   - PHY_EDGE_ROW_5_Left_12 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 5520 24480 ) FS ;
+   - PHY_EDGE_ROW_5_Right_5 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 23460 24480 ) S ;
+   - PHY_EDGE_ROW_6_Left_13 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 5520 27200 ) N ;
+   - PHY_EDGE_ROW_6_Right_6 sky130_fd_sc_hd__decap_3 
+      + PLACED ( 23460 27200 ) FN ;
+   - TAP_TAPCELL_ROW_0_14 sky130_fd_sc_hd__tapvpwrvgnd_1 
+      + PLACED ( 18400 10880 ) N ;
+   - TAP_TAPCELL_ROW_2_15 sky130_fd_sc_hd__tapvpwrvgnd_1 
+      + PLACED ( 18400 16320 ) N ;
+   - TAP_TAPCELL_ROW_4_16 sky130_fd_sc_hd__tapvpwrvgnd_1 
+      + PLACED ( 18400 21760 ) N ;
+   - TAP_TAPCELL_ROW_6_17 sky130_fd_sc_hd__tapvpwrvgnd_1 
+      + PLACED ( 18400 27200 ) N ;
+   - _01_ sky130_fd_sc_hd__nand2_1 
+      + PLACED ( 7360 2720 ) S ;
+   - _02_ sky130_fd_sc_hd__a22o_1 
+      + PLACED ( 8740 2720 ) S ;
+   - _03_ sky130_fd_sc_hd__o21a_1 
+      + PLACED ( 8740 5440 ) FN ;
+   - _04_ sky130_fd_sc_hd__dfxtp_1 
+      + PLACED ( 1380 5440 ) FS ;
+   - _05_ sky130_fd_sc_hd__dfxtp_1 
+      + PLACED ( 12880 5440 ) FS ;
+   - _06_ sky130_fd_sc_hd__dfxtp_1 
+      + PLACED ( 8740 8160 ) N ;
+   - _07_ sky130_fd_sc_hd__dfxtp_1 
+      + PLACED ( 8740 0 ) S ;
+   - _08_ sky130_fd_sc_hd__dfxtp_1 
+      + PLACED ( 0 2720 ) FS ;
+   - _09_ sky130_fd_sc_hd__dfxtp_1 
+      + PLACED ( 8740 10880 ) N ;
+   - _10_ sky130_fd_sc_hd__dfxtp_1 
+      + PLACED ( 13340 2720 ) FN ;
+   - input1 sky130_fd_sc_hd__clkbuf_1 
+      + PLACED ( 11500 5440 ) FN ;
+   - input2 sky130_fd_sc_hd__clkbuf_1 
+      + PLACED ( 7360 8160 ) N ;
+   - input3 sky130_fd_sc_hd__clkbuf_1 
+      + PLACED ( 7360 0 ) N ;
+   - input4 sky130_fd_sc_hd__clkbuf_1 
+      + PLACED ( 0 0 ) FN ;
+   - input5 sky130_fd_sc_hd__clkbuf_1 
+      + PLACED ( 7360 10880 ) FN ;
+   - output6 sky130_fd_sc_hd__buf_1 
+      + PLACED ( 11960 2720 ) FN ;
+   - output7 sky130_fd_sc_hd__buf_1 
+      + PLACED ( 0 5440 ) N ;
+END COMPONENTS
+
+PINS 10 ;
+   - N1_d + NET N1_d
+      + DIRECTION INPUT
+      + USE SIGNAL ;
+   - N22 + NET N22
+      + DIRECTION OUTPUT
+      + USE SIGNAL ;
+   - N23 + NET N23
+      + DIRECTION OUTPUT
+      + USE SIGNAL ;
+   - N2_d + NET N2_d
+      + DIRECTION INPUT
+      + USE SIGNAL ;
+   - N3_d + NET N3_d
+      + DIRECTION INPUT
+      + USE SIGNAL ;
+   - N6_d + NET N6_d
+      + DIRECTION INPUT
+      + USE SIGNAL ;
+   - N7_d + NET N7_d
+      + DIRECTION INPUT
+      + USE SIGNAL ;
+   - VGND + NET VGND
+      + DIRECTION INOUT
+      + USE GROUND ;
+   - VPWR + NET VPWR
+      + DIRECTION INOUT
+      + USE POWER ;
+   - clk + NET clk
+      + DIRECTION INPUT
+      + USE SIGNAL ;
+END PINS
+
+NETS 23 ;
+   - N1 ( _05_ Q )  ( _02_ A2 )  ;
+   - N1_d ( PIN N1_d )  ( input1 A )  ;
+   - N2 ( _06_ Q )  ( _03_ A1 )  ( _02_ B2 )  ;
+   - N22 ( PIN N22 )  ( output6 X )  ;
+   - N22_d ( _10_ D )  ( _02_ X )  ;
+   - N23 ( PIN N23 )  ( output7 X )  ;
+   - N23_d ( _04_ D )  ( _03_ X )  ;
+   - N2_d ( PIN N2_d )  ( input2 A )  ;
+   - N3 ( _07_ Q )  ( _02_ A1 )  ( _01_ B )  ;
+   - N3_d ( PIN N3_d )  ( input3 A )  ;
+   - N6 ( _08_ Q )  ( _01_ A )  ;
+   - N6_d ( PIN N6_d )  ( input4 A )  ;
+   - N7 ( _09_ Q )  ( _03_ A2 )  ;
+   - N7_d ( PIN N7_d )  ( input5 A )  ;
+   - _00_ ( _03_ B1 )  ( _02_ B1 )  ( _01_ Y )  ;
+   - clk ( PIN clk )  ( _10_ CLK )  ( _09_ CLK ) 
+ ( _08_ CLK )  ( _07_ CLK )  ( _06_ CLK )  ( _05_ CLK ) 
+ ( _04_ CLK )  ;
+   - net1 ( input1 X )  ( _05_ D )  ;
+   - net2 ( input2 X )  ( _06_ D )  ;
+   - net3 ( input3 X )  ( _07_ D )  ;
+   - net4 ( input4 X )  ( _08_ D )  ;
+   - net5 ( input5 X )  ( _09_ D )  ;
+   - net6 ( output6 A )  ( _10_ Q )  ;
+   - net7 ( output7 A )  ( _04_ Q )  ;
+END NETS
+
+END DESIGN
+

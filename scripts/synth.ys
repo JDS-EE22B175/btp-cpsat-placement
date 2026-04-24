@@ -1,0 +1,20 @@
+# 1. Read the Verilog file
+read_verilog ../designs/verilog/c7552.v
+
+# 2. Check the design hierarchy
+hierarchy -check -top c7552
+
+# 3. Perform high-level synthesis
+synth -top c7552
+
+# 4. Map D-flip-flops to the Sky130 library
+dfflibmap -liberty /home/jdattatreya/iitm/ispd26/OpenROAD/src/odb/test/data/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# 5. Map combinational logic using ABC
+abc -liberty /home/jdattatreya/iitm/ispd26/OpenROAD/src/odb/test/data/sky130hd/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+# 6. Cleanup unused cells and wires
+clean
+
+# 7. Write the synthesized structural netlist
+write_verilog ../designs/synth/synth_c7552.v
