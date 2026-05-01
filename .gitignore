@@ -17,3 +17,6 @@ ENV/
 # Editor Settings
 .vscode/
 .idea/
+
+# PAT
+pat.txt

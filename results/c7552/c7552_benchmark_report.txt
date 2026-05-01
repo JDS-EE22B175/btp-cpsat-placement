@@ -1,0 +1,67 @@
+==================================================
+ BTP Legalization Benchmark: c7552
+==================================================
+
+>>> BASELINE: OpenROAD Detailed Placement (OpenDP)
+Loading LEF File for Macro Dimensions...
+Parsing Global Placement DEF: /home/jdattatreya/iitm/btp/designs/deffiles/c7552_global_placed.def
+Parsing Detailed Placement DEF: /home/jdattatreya/iitm/btp/outputDefs/c7552_opendp.def
+
+==================================================
+           BTP LEGALIZATION BENCHMARK REPORT           
+==================================================
+
+--- 1. MANHATTAN DISPLACEMENT ---
+Total Gates Evaluated : 743
+Gates Moved           : 743
+Gates Unchanged       : 0
+Total Displacement    : 1917533 DBU
+Max Displacement      : 8033 DBU
+Average Displacement  : 2580.80 DBU
+
+--- 2. HALF-PERIMETER WIRELENGTH (HPWL) ---
+Initial GP HPWL       : 35350451 DBU
+Final Legal DP HPWL   : 37177880 DBU
+HPWL Degradation      : 5.17%
+
+--- 3. OCCUPIED LOGIC AREA ---
+Initial GP Span       : 1380 x 2720 DBU
+Final Legal DP Span   : 1380 x 2720 DBU
+Initial GP Area       : 3753600 DBU^2
+Final Legal DP Area   : 3753600 DBU^2
+Area Expansion        : 0.00%
+==================================================
+
+Density plot saved to: /home/jdattatreya/iitm/btp/logs/c7552/c7552_opendp_density.png
+
+>>> EXPERIMENTAL: CP-SAT Detailed Placement
+Loading LEF File for Macro Dimensions...
+Parsing Global Placement DEF: /home/jdattatreya/iitm/btp/designs/deffiles/c7552_global_placed.def
+Parsing Detailed Placement DEF: /home/jdattatreya/iitm/btp/outputDefs/c7552_cpsat.def
+
+==================================================
+           BTP LEGALIZATION BENCHMARK REPORT           
+==================================================
+
+--- 1. MANHATTAN DISPLACEMENT ---
+Total Gates Evaluated : 743
+Gates Moved           : 420
+Gates Unchanged       : 323
+Total Displacement    : 5067325 DBU
+Max Displacement      : 44892 DBU
+Average Displacement  : 6820.09 DBU
+
+--- 2. HALF-PERIMETER WIRELENGTH (HPWL) ---
+Initial GP HPWL       : 35350451 DBU
+Final Legal DP HPWL   : 39890915 DBU
+HPWL Degradation      : 12.84%
+
+--- 3. OCCUPIED LOGIC AREA ---
+Initial GP Span       : 1380 x 2720 DBU
+Final Legal DP Span   : 1380 x 2720 DBU
+Initial GP Area       : 3753600 DBU^2
+Final Legal DP Area   : 3753600 DBU^2
+Area Expansion        : 0.00%
+==================================================
+
+Density plot saved to: /home/jdattatreya/iitm/btp/logs/c7552/c7552_cpsat_density.png

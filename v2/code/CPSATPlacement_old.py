@@ -207,8 +207,6 @@ for net in d_parser.nets():
 print(f"Partitioned into {len(bins)} active G-Cells.")
 
 
-# In[6]:
-
 
 # --- Multiprocessing Orchestrator ---
 pool_args = []
@@ -223,9 +221,6 @@ with multiprocessing.Pool(processes=8) as pool:
     completed_bins = pool.starmap(solve_local_gcell, pool_args)
 
 print(f"All {len(completed_bins)} G-Cells processed in {time.time() - start_time:.2f} seconds.")
-
-
-# In[ ]:
 
 
 # ---- Build a fast name→component lookup ONCE (O(n)) ----
@@ -253,8 +248,6 @@ env["BTP_DEF_FILE"] = abs_outfile
 subprocess.Popen(["openroad", "-gui", "../scripts/view_defs.tcl"], env=env)
 # Use Popen instead of run so it doesn't block the notebook kernel
 
-
-# In[ ]:
 
 
 def calculate_displacement(gp_def_path, dp_def_path):

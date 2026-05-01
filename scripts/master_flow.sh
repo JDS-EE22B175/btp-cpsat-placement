@@ -48,12 +48,14 @@ fi
 SDC_FILE="$SDC_DIR/${DESIGN}.sdc"
 if [ ! -f "$SDC_FILE" ]; then
     echo "[1/6] Generating default SDC file..."
-    cat <<EOF > $SDC_FILE
+    cat <<EOF > "$SDC_FILE"
 create_clock -name vclk -period 10.0
 set_input_delay 2.0 -clock vclk [all_inputs]
 set_output_delay 2.0 -clock vclk [all_outputs]
 set_load 0.05 [all_outputs]
 EOF
+else
+    echo "[1/6] SDC file already exists for $DESIGN. Skipping generation."
 fi
 
 # 2. Logic Synthesis
