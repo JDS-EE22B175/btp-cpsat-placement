@@ -1,5 +1,8 @@
 import sys
+import os
 import LEFDEFParser
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 def get_comp_and_pin_coords(parser):
     """Extracts coordinates for movable components and external pins."""
@@ -75,10 +78,38 @@ def calculate_occupied_area(parser, dimLookup):
             if loc_x + w > max_x: max_x = loc_x + w
             if loc_y + h > max_y: max_y = loc_y + h
             
-    width = max_x - min_x if max_x >= min_x else 0
-    height = max_y - min_y if max_y >= min_y else 0
-    area = width * height
-    return width, height, area
+            width = max_x - min_x if max_x >= min_x else 0
+            height = max_y - min_y if max_y >= min_y else 0
+            area = width * height
+            return width, height, area
+
+def plot_density_heatmap(parser, dimLookup, title, filename):
+    """Generates and saves a heatmap-style density plot of the placement."""
+    fig, ax = plt.subplots(figsize=(10, 10))
+    ax.set_facecolor('#2b2b2b') # Dark background for visibility
+    
+    for comp in parser.components():
+        name = comp.name()
+        if "TAP" in name or "FILLER" in name or "PHY_EDGE" in name:
+            continue
+            
+        w, h = dimLookup.get(comp.macro(), (0, 0))
+        x, y = comp.location().x, comp.location().y
+        
+        # Transparent overlapping boxes create the heat map effect
+        rect = patches.Rectangle((x, y), w, h, linewidth=0.5, edgecolor='#00bcd4', 
+                                 facecolor='#e91e63', alpha=0.3)
+        ax.add_patch(rect)
+
+    ax.autoscale_view()
+    plt.title(title, color='white', fontsize=14)
+    plt.xlabel("X Coordinate (DBU)", color='white')
+    plt.ylabel("Y Coordinate (DBU)", color='white')
+    ax.tick_params(colors='white')
+    
+    plt.savefig(filename, dpi=300, bbox_inches='tight', facecolor='#2b2b2b')
+    plt.close()
+    print(f"Density plot saved to: {filename}")
 
 def run_benchmarks(lef_path, gp_def_path, dp_def_path):
     print("Loading LEF File for Macro Dimensions...")
@@ -137,16 +168,37 @@ def run_benchmarks(lef_path, gp_def_path, dp_def_path):
     print(f"Area Expansion        : {area_expansion:.2f}%")
     print("="*50 + "\n")
 
+    # --- 4. Generate the Density Plot ---
+    tool_name = "cpsat" if "cpsat" in dp_def_path.lower() else "opendp"
+    design_name = os.path.basename(gp_def_path).split('_')[0]
+    
+    # Resolve the logs directory relative to the script execution path
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(dp_def_path), ".."))
+    log_dir = os.path.join(base_dir, "logs", design_name)
+    os.makedirs(log_dir, exist_ok=True)
+    
+    plot_path = os.path.join(log_dir, f"{design_name}_{tool_name}_density.png")
+    plot_title = f"{tool_name.upper()} Legalization Density - {design_name.upper()}"
+    plot_density_heatmap(dp_parser, dimLookup, plot_title, plot_path)
+
+
 if __name__ == "__main__":
     # --- Execution Paths ---
-    # Update these paths to match your BTP directory structure if running from terminal
     LEF_FILE = "../../designs/leffiles/sky130.lef"
     GP_DEF = "../../designs/deffiles/c7552_global_placed.def"
     DP_DEF = "../../outputDefs/c7552_placed.def"
     
-    # Allows passing arguments from the terminal: python3 benchmark_metrics.py <GP_DEF> <DP_DEF>
     if len(sys.argv) == 3:
+        # Assuming master_flow.sh passes <GP_DEF> <DP_DEF>
+        # We also need the LEF file. To avoid changing the shell script arguments, 
+        # we can hardcode the default Volare path here as a fallback or read it if passed.
         GP_DEF = sys.argv[1]
         DP_DEF = sys.argv[2]
+        LEF_FILE = "/home/jdattatreya/.volare/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"
+        
+    if len(sys.argv) == 4:
+        GP_DEF = sys.argv[1]
+        DP_DEF = sys.argv[2]
+        LEF_FILE = sys.argv[3]
         
     run_benchmarks(LEF_FILE, GP_DEF, DP_DEF)

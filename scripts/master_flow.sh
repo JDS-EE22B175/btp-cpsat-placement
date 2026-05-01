@@ -28,11 +28,21 @@ OUT_DEF_DIR="$BASE_DIR/outputDefs"
 LOG_DIR="$BASE_DIR/logs/$DESIGN"
 PY_CODE_DIR="$BASE_DIR/v2/code"
 
+# Define the Virtual Environment Python Path
+VENV_PYTHON="$BASE_DIR/.venv/bin/python3"
+
 mkdir -p $SYNTH_DIR $SDC_DIR $DEF_DIR $OUT_DEF_DIR $LOG_DIR
 
 echo "=================================================="
 echo " Starting Physical Design Flow for: $DESIGN"
 echo "=================================================="
+
+# Safety Check: Ensure the virtual environment exists before starting a 5-minute flow
+if [ ! -f "$VENV_PYTHON" ]; then
+    echo "[ERROR] Virtual environment not found at $VENV_PYTHON"
+    echo "Please ensure your .venv is set up in the root of the btp folder."
+    exit 1
+fi
 
 # 1. SDC Generation
 SDC_FILE="$SDC_DIR/${DESIGN}.sdc"
@@ -97,8 +107,7 @@ openroad -exit $DP_TCL > $LOG_DIR/openroad_dp.log
 echo "[5/6] Running CP-SAT Detailed Placement Engine..."
 CPSAT_DEF="$OUT_DEF_DIR/${DESIGN}_cpsat.def"
 cd $PY_CODE_DIR
-# NOTE: You must export your Jupyter Notebook to 'CPSATPlacement.py' for this to work!
-python3 CPSATPlacement.py $GP_DEF $CPSAT_DEF > $LOG_DIR/cpsat_execution.log
+$VENV_PYTHON CPSATPlacement.py $GP_DEF $CPSAT_DEF > $LOG_DIR/cpsat_execution.log
 cd $BASE_DIR/scripts
 
 # 6. Benchmarking
@@ -111,10 +120,10 @@ echo "==================================================" >> $REPORT_FILE
 
 cd $PY_CODE_DIR
 echo -e "\n>>> BASELINE: OpenROAD Detailed Placement (OpenDP)" >> $REPORT_FILE
-python3 benchmark_metrics.py $GP_DEF $OPENDP_DEF >> $REPORT_FILE
+$VENV_PYTHON benchmark_metrics.py $GP_DEF $OPENDP_DEF >> $REPORT_FILE
 
 echo -e "\n>>> EXPERIMENTAL: CP-SAT Detailed Placement" >> $REPORT_FILE
-python3 benchmark_metrics.py $GP_DEF $CPSAT_DEF >> $REPORT_FILE
+$VENV_PYTHON benchmark_metrics.py $GP_DEF $CPSAT_DEF >> $REPORT_FILE
 cd $BASE_DIR/scripts
 
 echo "=================================================="
